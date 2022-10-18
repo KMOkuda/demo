@@ -11,13 +11,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HelloController {
 	@GetMapping("/hello")
 	public String getHello() {
-		return "hello";
+		System.out.println("got.");
+		return "/hello";
 	}
 
-	@PostMapping("/hello"){
-
+	@PostMapping("/hello")
 	public String postRequest(@RequestParam("text1") String str, Model model) {
 		model.addAttribute("sample", str);
-		return "helloResponse";
+		System.out.println("Posted");
+		return "/helloResponse";
 	}
-}}
+/**
+	@GetMapping("/helloResponse")
+	public String getHelloResponse() {
+		return "helloResponse";
+	}**/
+}
