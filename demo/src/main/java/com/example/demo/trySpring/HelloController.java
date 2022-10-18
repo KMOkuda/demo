@@ -14,7 +14,7 @@ public class HelloController {
 		System.out.println("got.");
 		return "/hello";
 	}
-
+/////////////////
 	@PostMapping("/hello")
 	public String postRequest(@RequestParam("text1") String str, Model model) {
 		model.addAttribute("sample", str);
