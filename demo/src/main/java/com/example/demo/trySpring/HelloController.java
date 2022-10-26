@@ -6,24 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 public class HelloController {
 	@GetMapping("/hello")
 	public String getHello() {
-		System.out.println("got.");
-		return "/hello";
+		return "hello";
 	}
-/////////////////
+
 	@PostMapping("/hello")
 	public String postRequest(@RequestParam("text1") String str, Model model) {
 		model.addAttribute("sample", str);
-		System.out.println("Posted");
-		return "/helloResponse";
-	}
-/**
-	@GetMapping("/helloResponse")
-	public String getHelloResponse() {
 		return "helloResponse";
-	}**/
+	}
 }
