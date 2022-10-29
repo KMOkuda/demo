@@ -18,4 +18,5 @@ public class HelloController {
 		model.addAttribute("sample", str);
 		return "helloResponse";
 	}
+	
 }
