@@ -37,13 +37,36 @@
 					<th class="active">誕生日</th>
 					<td>
 						<div class ="form-group">
+							<input type="text" class="form-control" placeholder="yyyy/MM/dd">
+						</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<th class="active">年齢</th>
+					<td>
+						<div class ="form-group">
 							<input type="text" class="form-control">
+						</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<th class="active">結婚</th>
+					<td>
+						<div class ="form-group">
+							<div th:each="item:${radioMarriage}">
+								<input type="radio" name="radioMarriage"
+								th:text="${item.key}"
+								th:value="${item.value}">
+								</input>
+							</div>
 						</div>
 					</td>
 				</tr>
 			</table>
 
-
+			<button class="btn btn-primary" type="submit">ユーザー登録</button>
 		</form>
 	</div>
 
