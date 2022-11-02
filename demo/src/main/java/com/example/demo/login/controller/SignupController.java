@@ -18,7 +18,7 @@ public class SignupController {
 
 	private Map<String, String> radioMarriage;
 
-	private Map<String, String> initRadioMarriage(){
+	private Map<String, String> initRadioMarriage() {
 		Map<String, String> radio = new LinkedHashMap<String, String>();
 
 		radio.put("既婚", "true");
@@ -38,7 +38,7 @@ public class SignupController {
 
 	@PostMapping("/signup")
 	public String postSignUp(@ModelAttribute @Validated SignupForm form, BindingResult bindingResult, Model model) {
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			return getSignUp(form, model);
 		}
 		System.out.println(form);
