@@ -27,7 +27,7 @@ public class SignupController {
 	}
 
 	@GetMapping("/signup")
-	public String getSignUp(@ModelAttribute SignupForm form, BindingResult bindingResult, Model model) {
+	public String getSignUp(@ModelAttribute SignupForm form, Model model) {
 		radioMarriage = initRadioMarriage();
 
 		model.addAttribute("radioMarriage", radioMarriage);
@@ -36,7 +36,11 @@ public class SignupController {
 	}
 
 	@PostMapping("/signup")
-	public String postSignUp(Model model) {
+	public String postSignUp(@ModelAttribute SignupForm form, BindingResult bindingResult, Model model) {
+		if(bindingResult.hasErrors()) {
+			return getSignUp(form, model);
+		}
+		System.out.println(form);
 		return "redirect:/login";
 	}
 }
