@@ -20,22 +20,22 @@ import lombok.NoArgsConstructor;
 public class User {
 	@Id
 	private String userId;
-	
+
 	@Column(nullable = false)
 	private String password;
-	
+
 	@Column(nullable = false)
 	private String userName;
-	
+
 	@Column(nullable = false)
 	private Date birthday;
-	
+
 	@Column(nullable = false)
 	private int age;
-	
+
 	@Column(nullable = false)
 	private boolean marriage;
-	
+
 	@Column(nullable = false)
 	private String role;
 }

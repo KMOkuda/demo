@@ -12,11 +12,11 @@ import com.example.demo.login.domain.repository.UserDao;
 public class UserService {
 	@Autowired
 	UserDao dao;
-	public User postTweet(User user) {
+	public User registerUser(User user) {
         return dao.save(user);
     }
 
-    public List<User> getTweet() {
+    public List<User> getUser() {
         return dao.findAll();
     }
 }

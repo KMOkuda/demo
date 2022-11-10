@@ -21,11 +21,11 @@ public class HomeController {
 
 		return "login/homeLayout";
 	}
-	
+
 	/*
 	@GetMapping("/userList")
 	public String getUserList(Model model) {
-		
+
 	}*/
 
 	@PostMapping("/logout")

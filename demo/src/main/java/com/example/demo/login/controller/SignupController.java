@@ -61,13 +61,8 @@ public class SignupController {
 
 		user.setRole("ROLE_GENERAL");
 
-		boolean result = userService.insert(user);
+		userService.registerUser(user);
 
-		if(result == true) {
-			System.out.println("insert 成功 ");
-		}else {
-			System.out.println("inser 失敗 ");
-		}
 
 		return "redirect:/login";
 	}
