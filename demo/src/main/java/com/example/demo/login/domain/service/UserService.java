@@ -12,23 +12,11 @@ import com.example.demo.login.domain.repository.UserDao;
 public class UserService {
 	@Autowired
 	UserDao dao;
+	public User postTweet(User user) {
+        return dao.save(user);
+    }
 
-	public boolean insert(User user) {
-		int rowNumber = dao.insertOne(user);
-		boolean result = false;
-		
-		if (rowNumber > 0) {
-			result = true;
-		}
-		
-		return result;
-	}
-	
-	public int count() {
-		return dao.count();
-	}
-	
-	public List<User> selectMany(){
-		return dao.selectMany();
-	}
+    public List<User> getTweet() {
+        return dao.findAll();
+    }
 }
