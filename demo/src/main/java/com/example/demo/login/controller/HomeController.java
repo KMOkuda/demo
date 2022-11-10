@@ -15,9 +15,18 @@ public class HomeController {
 
 	@GetMapping("/home")
 	public String getHome(Model model) {
-		model.addAttribute("contents","login/home :: home_contents");
+
+		//コンテンツ部分にホーム画面を表示させるための文字列を登録
+		model.addAttribute("contents","login/home::home_contents");
+
 		return "login/homeLayout";
 	}
+	
+	/*
+	@GetMapping("/userList")
+	public String getUserList(Model model) {
+		
+	}*/
 
 	@PostMapping("/logout")
 	public String postLogout() {
