@@ -16,18 +16,18 @@ public class UserService {
 	public boolean insert(User user) {
 		int rowNumber = dao.insertOne(user);
 		boolean result = false;
-		
+
 		if (rowNumber > 0) {
 			result = true;
 		}
-		
+
 		return result;
 	}
-	
+
 	public int count() {
 		return dao.count();
 	}
-	
+
 	public List<User> selectMany(){
 		return dao.selectMany();
 	}

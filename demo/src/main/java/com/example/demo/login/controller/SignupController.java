@@ -66,7 +66,7 @@ public class SignupController {
 		if(result == true) {
 			System.out.println("insert 成功 ");
 		}else {
-			System.out.println("inser 失敗 ");
+			System.out.println("insert 失敗 ");
 		}
 
 		return "redirect:/login";
