@@ -23,15 +23,7 @@ public class SignupController {
 	@Autowired
 	private UserService userService;
 
-	private Map<String, String> radioMarriage;
-
-	private Map<String, String> initRadioMarriage() {
-		Map<String, String> radio = new LinkedHashMap<String, String>();
-
-		radio.put("既婚", "true");
-		radio.put("未婚", "false");
-
-		return radio;
+	
 	}
 
 	@GetMapping("/signup")
