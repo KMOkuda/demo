@@ -36,11 +36,10 @@ public class HomeController {
 	public String getHome(Model model) {
 
 		//コンテンツ部分にホーム画面を表示させるための文字列を登録
-		model.addAttribute("contents","login/home::home_contents");
+		model.addAttribute("contents", "login/home::home_contents");
 
 		return "login/homeLayout";
 	}
-
 
 	@GetMapping("/userList")
 	public String getUserList(Model model) {
@@ -68,6 +67,26 @@ public class HomeController {
 
 	@GetMapping("/userDetail/{id:.+}")
 	public String getUserDetail(@ModelAttribute SignupForm form, Model model, @PathVariable("id") String userId) {
+		System.out.println("userId=" + userId);
+		model.addAttribute("contents", "login/userDetail :: userDetail_contents");
 
+		radioMarriage = initRadioMarriage();
+
+		model.addAttribute("radioMarriage", radioMarriage);
+
+		if (userId != null && userId.length() > 0) {
+			User user = userService.selectOne(userId);
+
+			form.setUserId(user.getUserId());
+			form.setUserName(user.getUserName());
+			form.setBirthday(user.getBirthday());
+			form.setAge(user.getAge());
+			form.setMarriage(user.isMarriage());
+
+			model.addAttribute("signupForm", form);
+		}
+
+		return "login/homeLayout";
 	}
+
 }
