@@ -44,13 +44,13 @@ public class UserDaoJdbcImpl implements UserDao {
 
 		User user = new User();
 
-		user.setUserId((String)map.get("user_id"));
-		user.setPassword((String)map.get("password"));
-		user.setUserName((String)map.get("user_name"));
-		user.setBirthday((Date)map.get("birthday"));
-		user.setAge((Integer)map.get("age"));
-		user.setMarriage((boolean)map.get("marriage"));
-		user.setRole((String)map.get("role"));
+		user.setUserId((String) map.get("user_id"));
+		user.setPassword((String) map.get("password"));
+		user.setUserName((String) map.get("user_name"));
+		user.setBirthday((Date) map.get("birthday"));
+		user.setAge((Integer) map.get("age"));
+		user.setMarriage((boolean) map.get("marriage"));
+		user.setRole((String) map.get("role"));
 
 		return user;
 	}
@@ -61,16 +61,16 @@ public class UserDaoJdbcImpl implements UserDao {
 
 		List<User> userList = new ArrayList<User>();
 
-		for(Map<String, Object> map:getList) {
+		for (Map<String, Object> map : getList) {
 			User user = new User();
 
-			user.setUserId((String)map.get("user_id"));
-			user.setPassword((String)map.get("password"));
-			user.setUserName((String)map.get("user_name"));
-			user.setBirthday((Date)map.get("birthday"));
-			user.setAge((Integer)map.get("age"));
-			user.setMarriage((Boolean)map.get("marriage"));
-			user.setRole((String)map.get("role"));
+			user.setUserId((String) map.get("user_id"));
+			user.setPassword((String) map.get("password"));
+			user.setUserName((String) map.get("user_name"));
+			user.setBirthday((Date) map.get("birthday"));
+			user.setAge((Integer) map.get("age"));
+			user.setMarriage((Boolean) map.get("marriage"));
+			user.setRole((String) map.get("role"));
 
 			userList.add(user);
 		}
@@ -80,7 +80,13 @@ public class UserDaoJdbcImpl implements UserDao {
 
 	@Override
 	public int updateOne(User user) throws DataAccessException {
-		return 0;
+
+		int rowNumber = jdbc.update("UPDATE m_user" + " SET" + " password=?," + " username=?,"
+				+ " birthday=?" + " age=?," + " marriage=?," + " WHERE id=?",
+				user.getPassword(), user.getUserName(), user.getBirthday(), user.getAge(), user.isMarriage(),
+				user.getUserId());
+
+		return rowNumber;
 	}
 
 	@Override

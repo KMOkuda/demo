@@ -64,7 +64,7 @@
 							<td>
 								<div class="form-group"
 									th:classappend="${#fields.hasErrors('age')} ? 'has-error'">
-									<input type="text" class="form-control" th:field="*{birthday}">
+									<input type="text" class="form-control" th:field="*{age}">
 									<span class="text-danger" th:if="${#fields.hasErrors('age')}"
 										th:errors="*{age}">age error</span>
 								</div>
@@ -87,8 +87,8 @@
 							</td>
 						</tr>
 					</table>
-					<button class="btn btn-primary btn-lg pull-right" type="submit" name="update">更新
-					</button>
+					<button class="btn btn-primary btn-lg pull-right" type="submit"
+						name="update">更新</button>
 					<button class="btn btn-danger btn-lg" type="submit" name="delete">削除
 					</button>
 				</form>
