@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.login.domain.model.User;
 import com.example.demo.login.domain.repository.UserDao;
 
-@Repository
+@Repository("UserDaoJdbcImpl")
 public class UserDaoJdbcImpl implements UserDao {
 
 	@Autowired
@@ -90,12 +90,17 @@ public class UserDaoJdbcImpl implements UserDao {
 	}
 
 	@Override
-	public int deleteOne(User userId) throws DataAccessException {
-		return 0;
+	public int deleteOne(String userId) throws DataAccessException {
+		int rowNumber = jdbc.update("DELETE FROM m_user WHERE user_id = ?", userId);
+		return rowNumber;
 	}
 
 	@Override
 	public void userCsvOut() throws DataAccessException {
+
+		String sql = "SELECT * FROM m_user";
+		UserRowCallbackHandler handler = new UserRowCallbackHandler();
+		jdbc.query(sql, handler);
 
 	}
 }

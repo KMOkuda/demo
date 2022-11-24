@@ -1,4 +1,3 @@
-+
 package com.example.demo.login.domain.repository;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public interface UserDao {
 
 	public int updateOne(User user) throws DataAccessException;
 
-	public int deleteOne(User userId) throws DataAccessException;
+	public int deleteOne(String userId) throws DataAccessException;
 
 	public void userCsvOut() throws DataAccessException;
 }

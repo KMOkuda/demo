@@ -1,10 +1,14 @@
 package com.example.demo.login.controller;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,8 +60,21 @@ public class HomeController {
 	}
 
 	@GetMapping("/userList/csv")
-	public String getUserListCsv(Model model) {
-		return getUserList(model);
+	public ResponseEntity<byte[]> getUserListCsv(Model model) {
+		userService.userCsvOut();
+		byte[] bytes = null;
+
+		try {
+			bytes = userService.getFile("sample.csv");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		HttpHeaders header = new HttpHeaders();
+		header.add("Content-Type", "text/csv;charaset=UTF-8");
+		header.setContentDispositionFormData("fileName", "sample.csv");
+
+		return new ResponseEntity<>(bytes, header, HttpStatus.OK);
 	}
 
 	@GetMapping("/userDetail/{id:.+}")
@@ -106,6 +123,16 @@ public class HomeController {
 			model.addAttribute("result", "更新失敗");
 		}
 
+		return getUserList(model);
+	}
+
+	@PostMapping(value = "/userDetail", params = "delete")
+	public String postUserDetailDelete(@ModelAttribute SignupForm form, Model model) {
+		System.out.println("削除ボタンの更新処理");
+		boolean result = userService.deleteOne(form.getUserId());
+
+		String attribute = result == true ? "削除成功" : "削除失敗";
+		model.addAttribute("result", attribute);
 		return getUserList(model);
 	}
 
