@@ -81,8 +81,8 @@ public class UserDaoJdbcImpl implements UserDao {
 	@Override
 	public int updateOne(User user) throws DataAccessException {
 
-		int rowNumber = jdbc.update("UPDATE m_user" + " SET" + " password=?," + " username=?,"
-				+ " birthday=?" + " age=?," + " marriage=?," + " WHERE id=?",
+		int rowNumber = jdbc.update("UPDATE M_USER" + " SET" + " password=?," + " user_name=?,"
+				+ " birthday=?," + " age=?," + " marriage=?" + " WHERE user_id=?",
 				user.getPassword(), user.getUserName(), user.getBirthday(), user.getAge(), user.isMarriage(),
 				user.getUserId());
 

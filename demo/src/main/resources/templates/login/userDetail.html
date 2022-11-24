@@ -12,7 +12,7 @@
 				<div class="page-header">
 					<h1>ユーザー詳細</h1>
 				</div>
-				<form action="post" th:action="@{/userDetail}"
+				<form method="post" th:action="@{/userDetail}"
 					th:object="${signupForm}">
 					<table class="table table-boardered table-hover">
 						<tr>
