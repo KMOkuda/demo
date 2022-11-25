@@ -19,6 +19,7 @@ public class UserDaoJdbcImpl2 extends UserDaoJdbcImpl{
 		String sql = "SELECT * FROM m_user WHERE user_id=?";
 		UserRowMapper rowMapper = new UserRowMapper();
 
+		//rowMapper以降の引数は複数渡せる
 		return jdbc.queryForObject(sql, rowMapper, userId);
 	}
 

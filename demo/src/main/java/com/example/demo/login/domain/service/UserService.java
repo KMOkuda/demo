@@ -18,7 +18,7 @@ import com.example.demo.login.domain.repository.UserDao;
 @Service
 public class UserService {
 	@Autowired
-	@Qualifier("UserDaoJdbcImpl4")
+	@Qualifier("UserDaoNamedJdbcImpl")
 	UserDao dao;
 
 	public boolean insert(User user) {
@@ -51,17 +51,17 @@ public class UserService {
 
 		return rowNumber > 0 ? true : false;
 	}
-	
+
 	public void userCsvOut() throws DataAccessException{
 		dao.userCsvOut();
 	}
-	
+
 	public byte[] getFile(String fileName) throws IOException{
 		FileSystem fs = FileSystems.getDefault();
 		Path p = fs.getPath(fileName);
-		
+
 		byte[] bytes = Files.readAllBytes(p);
-		
+
 		return bytes;
 	}
 }

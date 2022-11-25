@@ -71,7 +71,7 @@ public class HomeController {
 		}
 
 		HttpHeaders header = new HttpHeaders();
-		header.add("Content-Type", "text/csv;charaset=UTF-8");
+		header.add("Content-Type", "text/csv;charset=UTF-8");
 		header.setContentDispositionFormData("fileName", "sample.csv");
 
 		return new ResponseEntity<>(bytes, header, HttpStatus.OK);
