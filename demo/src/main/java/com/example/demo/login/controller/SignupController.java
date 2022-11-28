@@ -4,10 +4,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,7 +47,8 @@ public class SignupController {
 	}
 
 	@PostMapping("/signup")
-	public String postSignUp(@ModelAttribute @Validated (GroupOrder.class)SignupForm form, BindingResult bindingResult, Model model) {
+	public String postSignUp(@ModelAttribute @Validated(GroupOrder.class) SignupForm form, BindingResult bindingResult,
+			Model model) {
 		if (bindingResult.hasErrors()) {
 			return getSignUp(form, model);
 		}
@@ -63,12 +67,21 @@ public class SignupController {
 
 		boolean result = userService.insert(user);
 
-		if(result == true) {
+		if (result == true) {
 			System.out.println("insert 成功 ");
-		}else {
+		} else {
 			System.out.println("insert 失敗 ");
 		}
 
 		return "redirect:/login";
+	}
+
+	@ExceptionHandler(DataAccessException.class)
+	public String dataAccessExceptionHandler(DataAccessException e, Model model) {
+		model.addAttribute("error", "内部サーバーエラー（DB）：ExceptionHandler");
+		model.addAttribute("message", "SignupControllerでDataAccessExceptionが発生しました");
+		model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR);
+
+		return "error";
 	}
 }
