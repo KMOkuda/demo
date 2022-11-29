@@ -74,6 +74,7 @@ public class SecurityConfig {
 				.antMatchers("/login").permitAll()
 				.antMatchers("/signup").permitAll()
 				.antMatchers("/bbbb").authenticated()//なぜか用意したエラーページが出る！
+				.anyRequest().authenticated()
 				);
 
 		http.csrf().disable();
