@@ -25,6 +25,7 @@ public class SecurityConfig {
 	    return new SimpleAuthenticationEntryPoint();
 	}
 
+	//未認証のユーザーからのアクセスを拒否した際のエラー応答を行うためのインタフェース
 	public class SimpleAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
 	    @Override
@@ -35,14 +36,14 @@ public class SecurityConfig {
 	            System.out.println("Response has already been committed.");
 	            return;
 	        }
-	        System.out.println("com sent error.");
+	        System.out.println("SimpleAuthenticationEntryPoint.");
 	        response.sendError(HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN.getReasonPhrase());
 	        response.sendRedirect("/error");
 	    }
 
 	}
 
-
+	//認証済みのユーザーからのアクセスを拒否した際のエラー応答を行うためのインタフェース
 	public class SimpleAccessDeniedHandler implements AccessDeniedHandler {
 
 	    @Override
@@ -54,6 +55,7 @@ public class SecurityConfig {
 	            System.out.println("Response has already been committed.");
 	            return;
 	        }
+	    	System.out.println("SimpleAccessDeniedHandler.");
 	    	response.sendError(HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN.getReasonPhrase());
 	        response.sendRedirect("/error");
 
@@ -73,7 +75,8 @@ public class SecurityConfig {
 				.mvcMatchers("/webjars/**", "/css/**").permitAll()
 				.antMatchers("/login").permitAll()
 				.antMatchers("/signup").permitAll()
-				.antMatchers("/bbbb").authenticated()//なぜか用意したエラーページが出る！
+				.antMatchers("/error").permitAll()
+//				.antMatchers("/bbbb").authenticated()//なぜか用意したエラーページが出る！
 				.anyRequest().authenticated()
 				);
 
@@ -83,6 +86,8 @@ public class SecurityConfig {
 //		.authenticationEntryPoint(authenticationEntryPoint());
 //		.accessDeniedHandler(accessDeniedHandler());
 //		.accessDeniedPage("/error");
+
+
 
 		return http.build();
 	}
