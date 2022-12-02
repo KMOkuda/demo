@@ -1,10 +1,6 @@
 package com.example.demo.login.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ErrorController {
@@ -34,6 +30,7 @@ public class ErrorController {
 
 	**/
 
+	/** なぜか利かなかったのでとりあえずコメントアウト
 	@RequestMapping(value = "/error", method = RequestMethod.GET)
 	public String notFound(Model model) {
 		model.addAttribute("error", "404 error");
@@ -42,5 +39,5 @@ public class ErrorController {
 		System.out.println("404");
 		return "error/404";
 	}
-
+**/
 }

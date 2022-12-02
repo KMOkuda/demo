@@ -11,17 +11,12 @@
 <body>
 	<h1>Login</h1>
 	<form method="post" action="/login">
-		<p th:if="{session['SPRING_SECURITY_LAST_EXCEPTION'] != null}"
-		   th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
-		   class="text-danger">
-		   ログインエラーメッセージ
-		   </p>
 		<label>ユーザーID</label>
-		<input type="text" name="userId"/><br>
+		<input type="text"/><br>
 		<br/>
 
 		<label>パスワード</label>
-		<input type="password" name="password"/><br>
+		<input type="password"/><br>
 		<br/>
 
 		<button class="btn btn-primary" type="submit">ログイン</button>
