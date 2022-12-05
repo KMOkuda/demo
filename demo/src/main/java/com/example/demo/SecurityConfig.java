@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -15,63 +17,22 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-	/**
-	AuthenticationEntryPoint authenticationEntryPoint() {
-	    return new SimpleAuthenticationEntryPoint();
-	}
-
-	//未認証のユーザーからのアクセスを拒否した際のエラー応答を行うためのインタフェース
-	public class SimpleAuthenticationEntryPoint implements AuthenticationEntryPoint {
-
-	    @Override
-	    public void commence(HttpServletRequest request,
-	                         HttpServletResponse response,
-	                         AuthenticationException exception) throws IOException, ServletException {
-	        if (response.isCommitted()) {
-	            System.out.println("Response has already been committed.");
-	            return;
-	        }
-	        System.out.println("SimpleAuthenticationEntryPoint.");
-	        response.sendError(HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN.getReasonPhrase());
-	        response.sendRedirect("/error");
-	    }
-
-	}
-
-	//認証済みのユーザーからのアクセスを拒否した際のエラー応答を行うためのインタフェース
-	public class SimpleAccessDeniedHandler implements AccessDeniedHandler {
-
-	    @Override
-	    public void handle(HttpServletRequest request,
-	                       HttpServletResponse response,
-	                       AccessDeniedException exception) throws IOException, ServletException {
-
-	    	if (response.isCommitted()) {
-	            System.out.println("Response has already been committed.");
-	            return;
-	        }
-	    	System.out.println("SimpleAccessDeniedHandler.");
-	    	response.sendError(HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN.getReasonPhrase());
-	        response.sendRedirect("/error");
-
-	    }
-
-
-	}
-
-	AccessDeniedHandler accessDeniedHandler() {
-		return new SimpleAccessDeniedHandler();
-	}
-	**/
-
 	@Autowired
 	private DataSource dataSource;
 
 	private static final String USER_SQL = "SELECT" + " user_id," + " password,"
-			+ " true," + "FROM" + " m_user" + " WHERE" + " user_id = ?";
+			+ " true" + " FROM" + " m_user" + " WHERE" + " user_id = ?";
 
 	private static final String ROLE_SQL = "SELECT" + " user_id," + " role" + " FROM"
-	+ " m_user" + " WHERE" + " user_id = ?";
+			+ " m_user" + " WHERE" + " user_id = ?";
+
+	/**
+	 * @param http
+	 * @return
+	 * @throws Exception
+	 *
+	 * アクセス権限について規定
+	 */
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -81,15 +42,9 @@ public class SecurityConfig {
 				.antMatchers("/login").permitAll()
 				.antMatchers("/signup").permitAll()
 				.antMatchers("/error").permitAll()
-				//				.antMatchers("/bbbb").authenticated()//なぜか用意したエラーページが出る！
 				.anyRequest().authenticated());
 
 		http.csrf().disable();
-
-		//		http.exceptionHandling()
-		//		.authenticationEntryPoint(authenticationEntryPoint());
-		//		.accessDeniedHandler(accessDeniedHandler());
-		//		.accessDeniedPage("/error");
 
 		http.formLogin()
 				.loginProcessingUrl("/login")
@@ -102,16 +57,29 @@ public class SecurityConfig {
 		return http.build();
 	}
 
-
 	//参考URL：https://qiita.com/okaponta_/items/de1e640037b89b3ad6ca
 	//ログイン処理時のユーザー情報をDBから取得する
-	 @Bean
-	    public UserDetailsManager users(DataSource dataSource) {
-		 JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
+	@Bean
+	public UserDetailsManager users(DataSource dataSource) {
+		JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
 
-		 users.setUsersByUsernameQuery(USER_SQL);
-	        users.setAuthoritiesByUsernameQuery(ROLE_SQL);
-	        return users;
-	    }
+		users.setUsersByUsernameQuery(USER_SQL);
+		users.setAuthoritiesByUsernameQuery(ROLE_SQL);
+
+		return users;
+	}
+
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+/**
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication()
+				.withUser("user").password("{noop}password").roles("USER");
+	}**/
 
 }
