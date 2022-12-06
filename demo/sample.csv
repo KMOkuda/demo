@@ -1,1 +1,3 @@
-yamada@xxx.co.jp,password,山田太郎,1990-01-01,28,false,ROLE_ADMIN
+yamada@xxx.co.jp,$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.QjilhuIPa,山田太郎,1990-01-01,28,false,ROLE_ADMIN
+tamura@xxx.co.jp,$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.QjilhuIPa,田村達也,1990-01-01,28,false,ROLE_GENERAL
+kyo.trainee.sys.202205@gmail.com,$2a$10$xh2K.UmB41ctBzj44/fXoOKA0ZEWTCIbmjCYqcgqM3dHpaMjOoMhu,okuda,1997-01-27,20,false,ROLE_GENERAL

@@ -12,6 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+//参考になるURL https://qiita.com/opengl-8080/items/032ed0fa27a239bdc1cc
 
 @EnableWebSecurity
 @Configuration
@@ -42,9 +45,8 @@ public class SecurityConfig {
 				.antMatchers("/login").permitAll()
 				.antMatchers("/signup").permitAll()
 				.antMatchers("/error").permitAll()
+				.antMatchers("/admin").hasAuthority("ROLE_ADMIN")
 				.anyRequest().authenticated());
-
-		http.csrf().disable();
 
 		http.formLogin()
 				.loginProcessingUrl("/login")
@@ -53,6 +55,11 @@ public class SecurityConfig {
 				.usernameParameter("userId")
 				.passwordParameter("password")
 				.defaultSuccessUrl("/home", true);
+
+		http.logout()
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		.logoutUrl("/logout")
+		.logoutSuccessUrl("/login");
 
 		return http.build();
 	}

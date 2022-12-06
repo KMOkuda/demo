@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmins:th="http://www.thymeleaf.org"
-		xmins:layout="http://www.ultraq.net.nz/thymeleaf/latout">
+		xmins:layout="http://www.ultraq.net.nz/thymeleaf/latout"
+		xmins:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF8"></meta>
 <!-- Bootstrapを設定 -->
@@ -29,7 +30,7 @@
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation"><a th:href="@{'/userList'}">
 						ユーザ管理</a></li>
-					<li role="presentation"><a th:href="@{'/admin'}">
+					<li role="presentation" sec:authorize="hasRole('ADMIN')"><a th:href="@{'/admin'}">
 						アドミン用画面</a></li>
 				</ul>
 			</div>
