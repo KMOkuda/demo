@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- secタグを利用する場合はhtmlタグにxmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"を設定すること -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Spring Security OAuth Client デモ</title>
+    <meta charset="utf-8"/>
+    ：省略
+</head>
+<body>
+    <header>
+        <div class="header-wrap">
+            <h1>Spring Security OAuth Client デモ</h1>
+            <div class="header-nav">
+                <!-- sec:を利用する場合はhtmlタグに
+                      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"を設定すること -->
+                <div sec:authorize="isAuthenticated()">
+                    <ul class="account-info">
+                        <li>こんにちは <span sec:authentication="principal.attributes['name']">demo</span>さん</li>
+                        <li><a th:href="@{logout}"><span><i class="fas fa-sign-out-alt fa-fw"></i>ログアウト</span></a></li>
+                    </ul>
+                </div>
+                <div sec:authorize="isAnonymous()">
+                    <ul class="login">
+                        <li><a th:href="@{/login}"><span><i class="fas fa-sign-in-alt fa-fw"></i>ログイン</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="main-wrap">
+        <div class="message" sec:authorize="isAnonymous()">
+            <span>未ログイン状態です。</span>
+        </div>
+        <div class="user-info" sec:authorize="isAuthenticated()">
+            <h3>ログインユーザー情報</h3>
+            <table>
+                <tr>
+                    <th>名前</th>
+                    <td th:text="${name}">DEMO</td>
+                </tr>
+                <tr>
+                    <th>居住地</th>
+                    <td th:text="${location}">DEMO</td>
+                </tr>
+                <tr>
+                    <th>経歴</th>
+                    <td th:text="${bio}">DEMO</td>
+                </tr>
+                <tr>
+                    <th>ブログ</th>
+                    <td th:text="${blog}">DEMO</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
