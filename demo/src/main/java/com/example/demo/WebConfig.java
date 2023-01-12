@@ -9,7 +9,7 @@ public class WebConfig {
 	@Bean
 	public MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource bean = new ReloadableResourceBundleMessageSource();
-
+		
 		bean.addBasenames("classpath:messages");
 		bean.setDefaultEncoding("UTF-8");
 
