@@ -3,7 +3,6 @@ package com.example.demo.login.domain.model;
 import java.util.Date;
 
 import javax.validation.constraints.AssertFalse;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -17,12 +16,12 @@ import lombok.Data;
 
 @Data
 public class SignupForm {
-	@NotBlank(groups=ValidGroup1.class)
-	@Email(groups=ValidGroup2.class)
+	@NotBlank
+	@Length(min = 6, max = 10)
 	private String userId;
 
-	@NotBlank(groups=ValidGroup1.class)
-	@Length(min = 4, max = 100, groups=ValidGroup2.class)
+	@NotBlank
+	@Length(min = 8, max = 20)
 	@Pattern(regexp = "^[a-zA-Z0-9]+$", groups=ValidGroup3.class)
 	private String password;
 

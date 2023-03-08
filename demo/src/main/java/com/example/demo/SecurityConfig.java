@@ -23,11 +23,11 @@ public class SecurityConfig {
 	@Autowired
 	private DataSource dataSource;
 
-	private static final String USER_SQL = "SELECT" + " user_id," + " password,"
-			+ " true" + " FROM" + " m_user" + " WHERE" + " user_id = ?";
+	private static final String USER_SQL = "SELECT" + " user_name," + " password,"
+			+ " true" + " FROM" + " m_user" + " WHERE" + " user_name = ?";
 
-	private static final String ROLE_SQL = "SELECT" + " user_id," + " role" + " FROM"
-			+ " m_user" + " WHERE" + " user_id = ?";
+	private static final String ROLE_SQL = "SELECT" + " user_name," + " role" + " FROM"
+			+ " m_user" + " WHERE" + " user_name = ?";
 
 	/**
 	 * @param http
